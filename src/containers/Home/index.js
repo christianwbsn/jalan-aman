@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as counterActions from '../../redux_modules/counter';
 
-import { Button } from 'react-bootstrap/lib';
-import RaisedButton from 'material-ui/RaisedButton';
-
 @connect(
   state => ({
     counter: state.counter,
@@ -26,44 +23,38 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <h1>tes bustrap</h1>
-        <RaisedButton />
+        <h1>Hello React! ({this.props.counter.count})</h1>
+        <Button
+          onClick={() => this.props.decrementCounter()}
+          disabled={this.props.counter.isLoading}
+        >
+          -
+        </Button>
+        <Button
+          onClick={() => this.props.delayedIncrementCounter()}
+          disabled={this.props.counter.isLoading}
+        >
+          +
+        </Button>
       </div>
     );
-    // return (
-    //   <div>
-    //     <h1>Hello React! ({this.props.counter.count})</h1>
-    //     <Button
-    //       onClick={() => this.props.decrementCounter()}
-    //       disabled={this.props.counter.isLoading}
-    //     >
-    //       -
-    //     </Button>
-    //     <Button
-    //       onClick={() => this.props.delayedIncrementCounter()}
-    //       disabled={this.props.counter.isLoading}
-    //     >
-    //       +
-    //     </Button>
-    //   </div>
-    // );
   }
 }
 
-// const Button = styled.button`
-//   padding: .5rem 1rem;
-//   background: ${props => props.theme.primary};
-//   font-size: 1.5rem;
-//   border-radius: 50%;
-//   font-weight: bold;
-//   border: 0;
-//   cursor: pointer;
+const Button = styled.button`
+  padding: .5rem 1rem;
+  background: ${props => props.theme.primary};
+  font-size: 1.5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  border: 0;
+  cursor: pointer;
 
-//   &:not(:first-of-type) {
-//     margin-left: .5rem;
-//   }
+  &:not(:first-of-type) {
+    margin-left: .5rem;
+  }
 
-//   &:disabled {
-//     color: ${props => props.theme.blackTransparent};
-//   }
-// `;
+  &:disabled {
+    color: ${props => props.theme.blackTransparent};
+  }
+`;

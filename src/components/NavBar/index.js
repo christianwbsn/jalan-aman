@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -11,11 +11,11 @@ export default class NavBar extends Component {
     super(props);
     this.state = {
       isDrawerOpen: false,
-    }
+    };
   }
 
   onLeftIconClick() {
-    this.setState({isDrawerOpen: true});
+    this.setState({ isDrawerOpen: true });
   }
 
   render() {
@@ -29,9 +29,14 @@ export default class NavBar extends Component {
             docked={false}
             width={200}
             open={this.state.isDrawerOpen}
-            onRequestChange={(isDrawerOpen) => this.setState({isDrawerOpen})}>
-            <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-            <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+            onRequestChange={isDrawerOpen => this.setState({ isDrawerOpen })}
+          >
+            <Link to={'/'}>
+              <MenuItem>Home</MenuItem>
+            </Link>
+            <Link to={'/map'}>
+              <MenuItem>Map</MenuItem>
+            </Link>
           </Drawer>
         </div>
       </MuiThemeProvider>

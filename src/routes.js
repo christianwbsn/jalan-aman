@@ -6,7 +6,7 @@ export default [
   {
     exact: true,
     path: '/',
-    component: CrimeDistributionMap,
+    component: Home,
   },
   {
     exact: true,

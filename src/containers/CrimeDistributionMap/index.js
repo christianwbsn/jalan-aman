@@ -29,16 +29,14 @@ export default class CrimeDistributionMap extends Component {
     return (
       <div>
         <div>
-          <div>
-            <MapWithDialogWrapper
-              reports={this.props.reportState.reports}
-              onMarkerClick={this.onMarkerClick}
-              loadingElement={<div style={{ height: '100%' }} />}
-              containerElement={<div style={{ height: '800px' }} />}
-              mapElement={<div style={{ height: '100%' }} />}
-              center={{ lat: -6.877542, lng: 107.6036 }}
-            />
-          </div>
+          <MapWithDialogWrapper
+            reports={this.props.reportState.reports}
+            onMarkerClick={this.onMarkerClick}
+            loadingElement={<div style={{ height: '100%' }} />}
+            containerElement={<div style={{ height: '800px' }} />}
+            mapElement={<div style={{ height: '100%' }} />}
+            center={{ lat: -6.877542, lng: 107.6036 }}
+          />
         </div>
       </div>
     );
