@@ -17,41 +17,95 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Dialog from 'material-ui/Dialog';
+
+import CrimeDetailDialog from '../CrimeDetailDialog';
+
+class MapDialog extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isDialogOpen: false,
+    }
+  }
+
+  onMarkerClick(message) {
+    this.handleOpen();
+  }
+
+  handleOpen = () => {
+    this.setState({isDialogOpen: true});
+  };
+
+  handleClose = () => {
+    this.setState({isDialogOpen: false});
+  };
+
+  render() {
+    return (
+      <div>
+        <GoogleMap
+          defaultZoom={16}
+          defaultCenter={this.props.center}>
+          {
+            this.props.reports.map((report, key) => (
+              <Marker
+                key={key}
+                position={report.position}
+                icon={report.icon}
+                onClick={() => ::this.onMarkerClick(report.message)}
+              />
+            ))
+          }
+        </GoogleMap>
+        <Dialog
+          title="Detail Kejahatan"
+          modal={false}
+          open={this.state.isDialogOpen}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          {'begal @ cisitu'}
+        </Dialog>
+      </div>
+    );
+  }
+}
 
 const MapWithAMarker = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAgjZh8SHgEypVCNwbAoZc4s7Sc1OgjYMg&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `800px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
-    center: { lat: 25.03, lng: 121.6 },
   }),
   withScriptjs,
   withGoogleMap
 )(props =>
   {
     console.log(props);
-    return (
-      <GoogleMap
-        defaultZoom={8}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
-      >
-        {
-          props.reports.map((report, key) => (
-            <Marker
-              key={key}
-              position={report.position}
-              icon={report.icon}
-              onClick={() => props.onMarkerClick(report.message)}
-            />
-          ))
-        }
-      </GoogleMap>
-    );
+    return (<MapDialog {...props} />);
+    // return (
+    //   <div>
+    //     <GoogleMap
+    //       defaultZoom={16}
+    //       defaultCenter={props.center}>
+    //       {
+    //         props.reports.map((report, key) => (
+    //           <Marker
+    //             key={key}
+    //             position={report.position}
+    //             icon={report.icon}
+    //             onClick={() => props.onMarkerClick(report.message)}
+    //           />
+    //         ))
+    //       }
+    //     </GoogleMap>
+
+    //   </div>
+    // );
   }
 );
 
-class Coba extends Component {
+class CrimeMap extends Component {
   constructor(props) {
     super(props);
 
@@ -78,7 +132,7 @@ class Coba extends Component {
       message: 'cinta',
     },
     {
-      position: { lat: -34.397, lng: 151.644 },
+      position: { lat: -6.877542, lng: 107.6036 },
       icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
       message: 'hanyalah cinta'
     }
@@ -88,22 +142,19 @@ class Coba extends Component {
       <MuiThemeProvider>
         <div>
           <div>
-            <MapWithAMarker reports={reports} onMarkerClick={this.onMarkerClick}/>
+            <MapWithAMarker
+              reports={reports}
+              onMarkerClick={this.onMarkerClick}
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `800px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+              center={{ lat: -6.877542, lng: 107.6036 }}
+              />
           </div>
-          <Drawer
-            openSecondary={true}
-            docked={false}
-            width={200}
-            open={this.state.isPaneOpen}
-            onRequestChange={(isPaneOpen) => this.setState({isPaneOpen})}
-          >
-            <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-            <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
-          </Drawer>
         </div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default Coba;
+export default CrimeMap;
