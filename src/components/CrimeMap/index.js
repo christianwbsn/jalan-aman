@@ -27,10 +27,11 @@ class MapDialog extends Component {
 
     this.state = {
       isDialogOpen: false,
+      dialogContent: {}
     }
   }
 
-  onMarkerClick(message) {
+  onMarkerClick(dialogContent) {
     this.handleOpen();
   }
 
@@ -81,69 +82,22 @@ const MapWithAMarker = compose(
   withGoogleMap
 )(props =>
   {
-    console.log(props);
     return (<MapDialog {...props} />);
-    // return (
-    //   <div>
-    //     <GoogleMap
-    //       defaultZoom={16}
-    //       defaultCenter={props.center}>
-    //       {
-    //         props.reports.map((report, key) => (
-    //           <Marker
-    //             key={key}
-    //             position={report.position}
-    //             icon={report.icon}
-    //             onClick={() => props.onMarkerClick(report.message)}
-    //           />
-    //         ))
-    //       }
-    //     </GoogleMap>
-
-    //   </div>
-    // );
   }
 );
 
 class CrimeMap extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isPaneOpen: false,
-    }
-
-    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
-  }
-
-  onSetSidebarOpen(open) {
-    this.setState({sidebarOpen: open});
-  }
-
-  onMarkerClick(content) {
-    alert(content);
   }
 
   render() {
-    const reports = [
-    {
-      position: { lat: -34.397, lng: 150.644 },
-      icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-      message: 'cinta',
-    },
-    {
-      position: { lat: -6.877542, lng: 107.6036 },
-      icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-      message: 'hanyalah cinta'
-    }
-    ];
-
     return (
       <MuiThemeProvider>
         <div>
           <div>
             <MapWithAMarker
-              reports={reports}
+              reports={this.props.reports}
               onMarkerClick={this.onMarkerClick}
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `800px` }} />}

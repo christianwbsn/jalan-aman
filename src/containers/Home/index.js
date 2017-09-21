@@ -7,8 +7,6 @@ import * as counterActions from '../../redux_modules/counter';
 import { Button } from 'react-bootstrap/lib';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
-
 @connect(
   state => ({
     counter: state.counter,
