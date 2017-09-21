@@ -88,7 +88,6 @@ class Coba extends Component {
       <MuiThemeProvider>
         <div>
           <div>
-            <RaisedButton label={'Test Slider'} onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}/>
             <MapWithAMarker reports={reports} onMarkerClick={this.onMarkerClick}/>
           </div>
           <Drawer

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import DistributionMap from '../../components/DistributionMap';
 import CrimeMap from '../../components/CrimeMap';
 
 export default class DistributionMapContainer extends Component {
