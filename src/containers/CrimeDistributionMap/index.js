@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import CrimeMap from '../../components/CrimeMap';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
+
+import MapWithDialogWrapper from '../../components/CrimeMap';
 import * as reportActions from '../../redux_modules/report';
 
 @connect(
@@ -12,7 +11,7 @@ import * as reportActions from '../../redux_modules/report';
   }),
   reportActions
 )
-export default class DistributionMapContainer extends Component {
+export default class CrimeDistributionMap extends Component {
   static propTypes = {
     reportState: PropTypes.shape({
       reports: PropTypes.array,
@@ -31,7 +30,14 @@ export default class DistributionMapContainer extends Component {
       <div>
         <div>
           <div>
-            <CrimeMap reports={this.props.reportState.reports} />
+            <MapWithDialogWrapper
+              reports={this.props.reportState.reports}
+              onMarkerClick={this.onMarkerClick}
+              loadingElement={<div style={{ height: '100%' }} />}
+              containerElement={<div style={{ height: '800px' }} />}
+              mapElement={<div style={{ height: '100%' }} />}
+              center={{ lat: -6.877542, lng: 107.6036 }}
+            />
           </div>
         </div>
       </div>

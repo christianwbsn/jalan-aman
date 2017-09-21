@@ -1,16 +1,16 @@
 import NotFound from './components/NotFound';
 import Home from './containers/Home';
-import DistributionMapContainer from './containers/DistributionMapContainer';
+import CrimeDistributionMap from './containers/CrimeDistributionMap';
 
 export default [
   {
     exact: true,
     path: '/',
-    component: DistributionMapContainer,
+    component: CrimeDistributionMap,
   },
   {
     exact: true,
     path: '/map',
-    component: DistributionMapContainer,
+    component: CrimeDistributionMap,
   },
 ];
