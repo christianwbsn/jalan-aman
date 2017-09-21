@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as counterActions from '../../redux_modules/counter';
 
 import { Button } from 'react-bootstrap/lib';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 
@@ -28,6 +29,7 @@ export default class Home extends Component {
     return (
       <div>
         <h1>tes bustrap</h1>
+        <RaisedButton />
       </div>
     );
     // return (

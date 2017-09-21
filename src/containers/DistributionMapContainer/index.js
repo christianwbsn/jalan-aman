@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import DistributionMap from '../../components/DistributionMap';
-import NaiveMap from '../../components/NaiveMap';
+import CrimeMap from '../../components/CrimeMap';
 
 export default class DistributionMapContainer extends Component {
   render() {
     return (
       <div>
-        <h1>Jalan Aman</h1>
         <View>
           <div>
-            <NaiveMap />
+            <CrimeMap />
           </div>
         </View>
       </div>

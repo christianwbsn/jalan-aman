@@ -8,6 +8,7 @@ import configureStore from './redux/configureStore';
 import history from './common/routing';
 import App from './containers/App';
 import './style';
+import './fonts.css';
 
 const store = configureStore();
 
