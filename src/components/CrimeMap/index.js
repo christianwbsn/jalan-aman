@@ -35,10 +35,16 @@ class MapWithDialog extends Component {
   };
 
   render() {
+    const options = {
+      gestureHandling: 'greedy',
+      mapTypeControl: false,
+    };
+
     return (
       <MuiThemeProvider>
         <div>
           <GoogleMap
+            options={options}
             defaultZoom={16}
             center={this.props.center}>
             {

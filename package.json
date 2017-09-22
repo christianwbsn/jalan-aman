@@ -56,7 +56,8 @@
     "lint": "eslint src/**/*.js",
     "precommit": "npm run test",
     "start": "poi dev src/index.js",
-    "build": "poi build src/index.js"
+    "build": "poi build src/index.js",
+    "deploy": "poi build src/index.js && firebase deploy -p dist"
   },
   "precommit": [
     "lint",
