@@ -40,7 +40,7 @@ class MapWithDialog extends Component {
         <div>
           <GoogleMap
             defaultZoom={16}
-            defaultCenter={this.props.center}>
+            center={this.props.center}>
             {
               this.props.reports.map((report, key) => (
                 <Marker
