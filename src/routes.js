@@ -2,6 +2,7 @@ import NotFound from './components/NotFound';
 import Home from './containers/Home';
 import CrimeDistributionMap from './containers/CrimeDistributionMap';
 import NewsList from './containers/NewsList';
+import ReportContainerMap from './containers/ReportContainerMap';
 
 export default [
   {
@@ -32,7 +33,7 @@ export default [
     name: 'Lapor',
     exact: true,
     path: '/lapor',
-    component: Home,
+    component: ReportContainerMap,
   },
   {
     name: 'Dashboard',

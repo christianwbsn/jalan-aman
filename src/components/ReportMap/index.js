@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose, withProps, lifecycle } from "recompose";
+import { compose, withProps } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -14,30 +14,26 @@ import Dialog from 'material-ui/Dialog';
 
 import get from 'lodash/fp/get';
 
-class MapWithDialog extends Component {
+import ReportForm from '../../components/ReportForm';
+
+class MapWithReport extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isDialogOpen: false,
       dialogContent: {},
-      bounds: null,
       center: this.props.center,
-      markers: [],
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps');
     if (this.props.center !== nextProps.center) {
       this.setState({ center: nextProps.center });
     }
   }
 
-  onMapMounted(ref) {
-    this.refs.map = ref;
-  }
-
+  // Untuk update center
   onBoundsChanged() {
     this.setState({
       bounds: this.refs.map.getBounds(),
@@ -45,10 +41,7 @@ class MapWithDialog extends Component {
     });
   }
 
-  onSearchBoxMounted(ref) {
-    this.refs.searchBox = ref;
-  }
-
+  // Untuk search box update - blom bisa
   onPlacesChanged() {
     const places = this.refs.searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
@@ -75,80 +68,64 @@ class MapWithDialog extends Component {
     this.handleOpen();
   }
 
-  handleOpen = () => {
+  handleOpen() {
     this.setState({ isDialogOpen: true });
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     this.setState({ isDialogOpen: false });
-  };
+  }
 
-  render() {
-    const options = {
+  getMapOptions() {
+    return {
       gestureHandling: 'greedy',
       mapTypeControl: false,
     };
+  }
 
+  renderCurrentLocationMarker() {
+    return (
+      <Marker
+        position={this.state.center}
+        onClick={() => ::this.onMarkerClick('hehehehe')}
+      />
+    );
+  }
+
+  renderReportDialog() {
+    return (
+      <Dialog
+        title="Form Pelaporan"
+        modal={false}
+        open={this.state.isDialogOpen}
+        onRequestClose={::this.handleClose}
+        autoScrollBodyContent={true}
+      >
+        <ReportForm />
+      </Dialog>
+    );
+  }
+
+  render() {
     return (
       <MuiThemeProvider>
         <div>
           <GoogleMap
             ref={'map'}
-            options={options}
+            options={::this.getMapOptions()}
             defaultZoom={16}
             center={this.state.center}
             onBoundsChanged={::this.onBoundsChanged}>
-            <SearchBox
-              ref={'searchBox'}
-              bounds={this.state.bounds}
-              controlPosition={google.maps.ControlPosition.TOP_LEFT}
-              onPlacesChanged={::this.onPlacesChanged}
-            >
-              <input
-                type="text"
-                placeholder="Customized your placeholder"
-                style={{
-                  boxSizing: `border-box`,
-                  border: `1px solid transparent`,
-                  width: `240px`,
-                  height: `32px`,
-                  marginTop: `27px`,
-                  padding: `0 12px`,
-                  borderRadius: `3px`,
-                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                  fontSize: `14px`,
-                  outline: `none`,
-                  textOverflow: `ellipses`,
-                }}
-              />
-            </SearchBox>
-            {
-              this.props.reports.map((report, key) => (
-                <Marker
-                  key={key}
-                  position={report.position}
-                  icon={report.icon}
-                  onClick={() => ::this.onMarkerClick(report.message)}
-                />
-              ))
-            }
+            {this.renderCurrentLocationMarker()}
+            {this.renderReportDialog()}
           </GoogleMap>
-          <Dialog
-            title="Detail Kejahatan"
-            modal={false}
-            open={this.state.isDialogOpen}
-            onRequestClose={this.handleClose}
-            autoScrollBodyContent={true}
-          >
-            {'begal @ cisitu'}
-          </Dialog>
         </div>
       </MuiThemeProvider>
     );
   }
 }
 
-const CrimeMap = compose(
+const ReportMap = compose(
   withProps({
     googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAgjZh8SHgEypVCNwbAoZc4s7Sc1OgjYMg&v=3.exp&libraries=geometry,drawing,places',
   }),
@@ -156,8 +133,8 @@ const CrimeMap = compose(
   withGoogleMap
 )(props =>
   {
-    return (<MapWithDialog {...props} />);
+    return (<MapWithReport {...props} />);
   }
 );
 
-export default CrimeMap;
+export default ReportMap;

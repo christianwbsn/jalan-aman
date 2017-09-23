@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import MapWithDialogWrapper from '../../components/CrimeMap';
+import ReportMap from '../../components/ReportMap';
 import * as reportActions from '../../redux_modules/report';
 
 @connect(
@@ -13,7 +13,7 @@ import * as reportActions from '../../redux_modules/report';
   }),
   reportActions
 )
-class CrimeDistributionMap extends Component {
+class ReportContainerMap extends Component {
   static propTypes = {
     reportState: PropTypes.shape({
       reports: PropTypes.array,
@@ -38,13 +38,10 @@ class CrimeDistributionMap extends Component {
   }
 
   componentDidMount() {
-    // const clientHeight = this.refs.mapz.clientHeight;
-    // this.setState({ containerHeight: clientHeight });
     this.getCurrentPosition();
   }
 
   onGetLocationSuccess(position) {
-    console.log("KEBUHAASBDJABDJASBJDABDJBJABDABJSDABJ");
     const { latitude, longitude } = position.coords;
     this.setState({ center: { lat: latitude, lng: longitude } });
   }
@@ -56,14 +53,10 @@ class CrimeDistributionMap extends Component {
   }
 
   render() {
-    console.log('UPDATED LOCATION');
-    console.log(this.state.center);
     return (
       <div>
         <View>
-          <MapWithDialogWrapper
-            reports={this.props.reportState.reports}
-            onMarkerClick={this.onMarkerClick}
+          <ReportMap
             loadingElement={<div style={{ height: '100%' }} />}
             containerElement={<div style={{ height: '100%' }} />}
             mapElement={<div style={{ height: '100%' }} />}
@@ -80,4 +73,4 @@ const View = styled.div`
   background-color: yellow;
 `;
 
-export default CrimeDistributionMap;
+export default ReportContainerMap;
