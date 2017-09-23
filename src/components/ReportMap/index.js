@@ -93,6 +93,7 @@ class MapWithReport extends Component {
   }
 
   renderReportDialog() {
+    let position = this.state.center;
     return (
       <Dialog
         title="Form Pelaporan"
@@ -101,7 +102,7 @@ class MapWithReport extends Component {
         onRequestClose={::this.handleClose}
         autoScrollBodyContent={true}
       >
-        <ReportForm />
+        <ReportForm location={this.state.center}/>
       </Dialog>
     );
   }

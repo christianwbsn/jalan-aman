@@ -105,13 +105,14 @@ export default class ReportForm extends Component {
 
 
 	render() {
+    console.log('CURRENT LOCATION: ', this.props.location);
     const { dialogContent, isReportValid } = this.state;
-    console.log(typeof dialogContent);
+    const { location } = this.props;
+    console.log(typeof location);
 		return (
 			<MuiThemeProvider>
         <div>
   				<form>
-            <TextField ref={'nama'} floatingLabelText="Nama Pelapor"/><br />
             <TextField ref={'nama'} floatingLabelText="Nama Pelapor"/><br />
             <TextField ref={'telpon'} floatingLabelText="Nomor Telpon"/><br />
             <TextField ref={'lokasiKejadian'} floatingLabelText="Lokasi Kejadian"/><br /><br />

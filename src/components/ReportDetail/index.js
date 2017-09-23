@@ -35,18 +35,18 @@ export default class ReportDetail extends Component {
   }
 
   getLatestReportComments() {
-    return new Promise((resolve, reject) => {
-      // TODO: KONEK KE API YG BENERAN HEHE
-      request
-        .get('http://168.235.69.213/report/all')
-        .end((err, res) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(res);
-          }
-        });
-    });
+    // return new Promise((resolve, reject) => {
+    //   // TODO: KONEK KE API YG BENERAN HEHE
+    //   request
+    //     .get('http://168.235.69.213/report/all')
+    //     .end((err, res) => {
+    //       if (err) {
+    //         reject(err);
+    //       } else {
+    //         resolve(res);
+    //       }
+    //     });
+    // });
   }
 
   sendNewComment() {
