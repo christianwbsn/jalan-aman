@@ -18,20 +18,20 @@ export default class ReportDetail extends Component {
 
   getComments() {
     // comment = username, comment
-    this.getLatestReportComments()
-      .then(res => {
-        try {
-          // TODO: KALO UDH KONEK BENER, SAMBUNGIN SAMA STATE COMMENTS
-          const data = JSON.parse(res.text).data;
-          this.setState({ comments: [{  }] })
-        } catch (err) {
-          // pass
-        }
-      })
-      .catch(err => {
-        console.log('ERROR BANGGGGGGGG');
-        console.log(err);
-      });
+    // this.getLatestReportComments()
+    //   .then(res => {
+    //     try {
+    //       // TODO: KALO UDH KONEK BENER, SAMBUNGIN SAMA STATE COMMENTS
+    //       const data = JSON.parse(res.text).data;
+    //       this.setState({ comments: [{  }] })
+    //     } catch (err) {
+    //       // pass
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log('ERROR BANGGGGGGGG');
+    //     console.log(err);
+    //   });
   }
 
   getLatestReportComments() {

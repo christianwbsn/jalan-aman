@@ -35,9 +35,15 @@ class MapWithReport extends Component {
 
   // Untuk update center
   onBoundsChanged() {
+    console.log('onBoundsChanged');
+    const mapCenter = this.refs.map.getCenter();
+    const location = {
+      lat: mapCenter.lat(),
+      lng: mapCenter.lng()
+    }
     this.setState({
       bounds: this.refs.map.getBounds(),
-      center: this.refs.map.getCenter(),
+      center: location,
     });
   }
 
@@ -93,7 +99,6 @@ class MapWithReport extends Component {
   }
 
   renderReportDialog() {
-    let position = this.state.center;
     return (
       <Dialog
         title="Form Pelaporan"
@@ -116,7 +121,8 @@ class MapWithReport extends Component {
             options={::this.getMapOptions()}
             defaultZoom={16}
             center={this.state.center}
-            onBoundsChanged={::this.onBoundsChanged}>
+            onBoundsChanged={::this.onBoundsChanged}
+          >
             {this.renderCurrentLocationMarker()}
             {this.renderReportDialog()}
           </GoogleMap>
