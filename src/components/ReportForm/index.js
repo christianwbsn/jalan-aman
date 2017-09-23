@@ -54,7 +54,11 @@ export default class ReportForm extends Component {
       console.log(errors.join('\n'));
       this.setState({ dialogContent: errors, isDialogOpen: true, isReportValid: false });
     } else {
+      //
+      //
       // TODO: SEND FORM KE BACKEND, HANDLE ASYNC, TERUS PANGGIL REDUX LOAD REPORT
+      //
+      //
       this.setState({ dialogContent: ['Data sudah kami simpan'], isDialogOpen: true, isReportValid: true });
     }
   }
@@ -102,7 +106,7 @@ export default class ReportForm extends Component {
             <TextField ref={'lokasiKejadian'} floatingLabelText="Lokasi Kejadian"/><br /><br />
             <DatePicker ref={'tanggalKejadian'} hintText="Tanggal Kejadian" /><br />
             <TimePicker ref={'waktuKejadian'} hintText="Waktu Kejadian" />
-            <TextField ref={'deskripsi'} hintText={'Deskripsi Kejadian'} /><br />
+            <TextField ref={'deskripsi'} floatingLabelText={'Deskripsi Kegiatan'} /><br />
             <RaisedButton label="Submit Laporan" onClick={this.submitForm} primary={true}/>
   				</form>
           <Dialog

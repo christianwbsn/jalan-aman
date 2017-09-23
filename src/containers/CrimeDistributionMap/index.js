@@ -44,7 +44,6 @@ class CrimeDistributionMap extends Component {
   }
 
   onGetLocationSuccess(position) {
-    console.log("KEBUHAASBDJABDJASBJDABDJBJABDABJSDABJ");
     const { latitude, longitude } = position.coords;
     this.setState({ center: { lat: latitude, lng: longitude } });
   }
@@ -56,8 +55,6 @@ class CrimeDistributionMap extends Component {
   }
 
   render() {
-    console.log('UPDATED LOCATION');
-    console.log(this.state.center);
     return (
       <div>
         <View>

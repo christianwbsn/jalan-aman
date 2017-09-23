@@ -14,28 +14,38 @@ import Dialog from 'material-ui/Dialog';
 
 import get from 'lodash/fp/get';
 
+function getFormattedDate(date) {
+  const bulan = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  const s = date.split('-');
+  return `${s[0]} ${bulan[parseInt(s[1]) - 1]} ${s[2]}`;
+}
+
 class MapWithDialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isDialogOpen: false,
-      dialogContent: {},
       bounds: null,
       center: this.props.center,
       markers: [],
+      dialogContent: {
+        title: '',
+        parsedDate: '',
+        parsedTime: '',
+        address: '',
+        description: '',
+        id: '',
+      },
     };
+
+    this.renderDialogContent = this.renderDialogContent.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps');
     if (this.props.center !== nextProps.center) {
       this.setState({ center: nextProps.center });
     }
-  }
-
-  onMapMounted(ref) {
-    this.refs.map = ref;
   }
 
   onBoundsChanged() {
@@ -43,10 +53,6 @@ class MapWithDialog extends Component {
       bounds: this.refs.map.getBounds(),
       center: this.refs.map.getCenter(),
     });
-  }
-
-  onSearchBoxMounted(ref) {
-    this.refs.searchBox = ref;
   }
 
   onPlacesChanged() {
@@ -71,8 +77,35 @@ class MapWithDialog extends Component {
     });
   }
 
-  onMarkerClick() {
+  onMarkerClick(report) {
+    const { title, datetime, address, description, id } = report;
+    const parsedDate = getFormattedDate(datetime.split(' ')[0]);
+    const parsedTime = datetime.split(' ')[1];
+
+    this.setState({
+      dialogContent: {
+        title,
+        parsedTime,
+        parsedDate,
+        address,
+        description,
+      },
+    });
     this.handleOpen();
+  }
+
+  renderDialogContent() {
+    const { title, parsedDate, parsedTime, address, description, id } = this.state.dialogContent;
+
+    return (
+      <div>
+        <h4>{title}</h4>
+        <h4>{parsedDate}</h4>
+        <h4>{parsedTime}</h4>
+        <h4>{address}</h4>
+        <h4>{description}</h4>
+      </div>
+    );
   }
 
   handleOpen = () => {
@@ -97,40 +130,19 @@ class MapWithDialog extends Component {
             options={options}
             defaultZoom={16}
             center={this.state.center}
-            onBoundsChanged={::this.onBoundsChanged}>
-            <SearchBox
-              ref={'searchBox'}
-              bounds={this.state.bounds}
-              controlPosition={google.maps.ControlPosition.TOP_LEFT}
-              onPlacesChanged={::this.onPlacesChanged}
-            >
-              <input
-                type="text"
-                placeholder="Customized your placeholder"
-                style={{
-                  boxSizing: `border-box`,
-                  border: `1px solid transparent`,
-                  width: `240px`,
-                  height: `32px`,
-                  marginTop: `27px`,
-                  padding: `0 12px`,
-                  borderRadius: `3px`,
-                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                  fontSize: `14px`,
-                  outline: `none`,
-                  textOverflow: `ellipses`,
-                }}
-              />
-            </SearchBox>
+            onBoundsChanged={::this.onBoundsChanged}
+          >
             {
-              this.props.reports.map((report, key) => (
-                <Marker
-                  key={key}
-                  position={report.position}
-                  icon={report.icon}
-                  onClick={() => ::this.onMarkerClick(report.message)}
-                />
-              ))
+              this.props.reports.map((report, key) => {
+                return (
+                  <Marker
+                    key={key}
+                    position={report.position}
+                    icon={report.icon}
+                    onClick={() => ::this.onMarkerClick(report)}
+                  />
+                );
+              })
             }
           </GoogleMap>
           <Dialog
@@ -140,7 +152,7 @@ class MapWithDialog extends Component {
             onRequestClose={this.handleClose}
             autoScrollBodyContent={true}
           >
-            {'begal @ cisitu'}
+            {this.renderDialogContent()}
           </Dialog>
         </div>
       </MuiThemeProvider>

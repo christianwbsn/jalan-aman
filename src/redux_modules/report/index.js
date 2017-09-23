@@ -44,19 +44,31 @@ export function loadReports() {
     await promise;
     const reports = [
       {
-        position: { lat: -34.397, lng: 150.644 },
+        id: 1,
         icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-        message: 'cinta',
+        tite: 'begal',
+        datetime: '1-9-2017 12:03:23',
+        address: 'Jl. Cisistew',
+        position: { lat: -6.677542, lng: 107.6036 },
+        description: 'aku ditusuuuk',
       },
       {
-        position: { lat: -6.877542, lng: 107.6036 },
+        id: 2,
         icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-        message: 'hanyalah cinta',
-      },
-      {
+        tite: 'begal',
+        datetime: '14-11-2016 2:21:54',
+        address: 'Jl. Cisistew',
         position: { lat: -6.777542, lng: 107.6036 },
+        description: 'aku diapa2in',
+      },
+      {
+        id: 3,
         icon: 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png',
-        message: 'HIHIHIH',
+        tite: 'begal',
+        datetime: '8-8-1998 1:01:1',
+        address: 'RS MMC',
+        position: { lat: -6.877542, lng: 107.6036 },
+        description: 'aku dicopet',
       },
     ];
     dispatch(updateReports(reports));
