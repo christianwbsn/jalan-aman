@@ -102,7 +102,7 @@ export function loginUser(creds) {
   const user = toFormData(creds);
   return dispatch => {
     dispatch(requestLogin(creds));
-    return request.post('http://api.jalanaman.ga/user/login')
+    return request.post('https://api.jalanaman.ga/user/login')
       .send(user)
       .end((err, res) => {
         if (err) {
@@ -170,7 +170,7 @@ export function registerUser(creds) {
   console.log(user);
   return dispatch => {
     dispatch(requestLogin(creds));
-    return request.post('http://api.jalanaman.ga/user/register')
+    return request.post('https://api.jalanaman.ga/user/register')
       .send(user)
       .end((err, res) => {
         if (err) {
@@ -226,9 +226,18 @@ function receiveLogout() {
 export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout());
-    localStorage.removeItem('auth');
-    localStorage.removeItem('refresh');
-    dispatch(receiveLogout());
+    return request.post('https://api.jalanaman.ga/user/logout')
+      .set('auth', localStorage.getItem('auth'))
+      .set('refresh', localStorage.getItem('refresh'))
+      .send(new FormData())
+      .end((err, res) => {
+        if (err) {
+          console.log('LOGOUT ERROR: ', err);
+        }
+        localStorage.removeItem('id_token')
+        localStorage.removeItem('access_token')
+        dispatch(receiveLogout())
+      });
   }
 }
 

@@ -9,7 +9,13 @@ import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import Dialog from 'material-ui/Dialog';
 
-// center
+import { connect } from 'react-redux';
+
+@connect(
+  state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+  }),
+)
 export default class ReportForm extends Component {
 	constructor(props) {
 		super(props);
@@ -64,6 +70,10 @@ export default class ReportForm extends Component {
   }
 
   submitForm(e) {
+    if (!this.props.isAuthenticated) {
+      alert('blom login coy')
+      return;
+    }
     e.preventDefault();
     let nama = this.getVal('nama');
     let telpon = this.getVal('telpon');
@@ -101,6 +111,7 @@ export default class ReportForm extends Component {
 			<MuiThemeProvider>
         <div>
   				<form>
+            <TextField ref={'nama'} floatingLabelText="Nama Pelapor"/><br />
             <TextField ref={'nama'} floatingLabelText="Nama Pelapor"/><br />
             <TextField ref={'telpon'} floatingLabelText="Nomor Telpon"/><br />
             <TextField ref={'lokasiKejadian'} floatingLabelText="Lokasi Kejadian"/><br /><br />

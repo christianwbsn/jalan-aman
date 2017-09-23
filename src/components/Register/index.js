@@ -59,7 +59,7 @@ export default class RegisterView extends Component {
           <TextField ref={'email'} floatingLabelText="Email" /><br />
           <TextField ref={'password'} type={'password'} floatingLabelText="Password" /><br />
           <TextField ref={'passwordAgain'} type={'password'} floatingLabelText="Masukkan Password Lagi" /><br />
-          <RaisedButton label="Login" onClick={this.submitRegister} primary={true}/>
+          <RaisedButton label="Register" onClick={this.submitRegister} primary={true}/>
         </div>
       </MuiThemeProvider>
     );

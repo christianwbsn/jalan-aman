@@ -46,7 +46,7 @@ export default class LoginView extends Component {
         <div>
           <h4>Laman Login</h4>
           <TextField ref={'email'} floatingLabelText="Email"/><br />
-          <TextField ref={'password'} floatingLabelText="Password" /><br />
+          <TextField ref={'password'} type={'password'} floatingLabelText="Password" /><br />
           <RaisedButton label="Login" onClick={this.submitLogin} primary={true}/>
         </div>
       </MuiThemeProvider>
