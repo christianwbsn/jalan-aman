@@ -3,6 +3,8 @@ import Home from './containers/Home';
 import CrimeDistributionMap from './containers/CrimeDistributionMap';
 import NewsList from './containers/NewsList';
 import ReportContainerMap from './containers/ReportContainerMap';
+import LoginView from './components/Login';
+import RegisterView from './components/Register';
 
 export default [
   {
@@ -15,13 +17,13 @@ export default [
     name: 'Login',
     exact: true,
     path: '/login',
-    component: Home,
+    component: LoginView,
   },
   {
     name: 'Register',
     exact: true,
     path: '/register',
-    component: Home,
+    component: RegisterView,
   },
   {
     name: 'Berita',

@@ -10,14 +10,17 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 
 import * as navActions from '../../redux_modules/navz';
+import * as authActions from '../../redux_modules/auth';
+
 
 import routes from '../../routes';
 
 @connect(
   state => ({
     navState: state.navState,
+    isAuthenticated: state.auth.isAuthenticated,
   }),
-  navActions
+  authActions
 )
 export default class NavBar extends Component {
   constructor(props) {
@@ -30,10 +33,10 @@ export default class NavBar extends Component {
   }
 
   componentDidMount() {
-    const { clientHeight } = this.refs.navz;
-    if (clientHeight) {
-      this.props.updateNavHeight(clientHeight); // Apus kalo gakepake
-    }
+    // const { clientHeight } = this.refs.navz;
+    // if (clientHeight) {
+    //   this.props.updateNavHeight(clientHeight); // Apus kalo gakepake
+    // }
   }
 
   onLeftIconClick() {
@@ -63,6 +66,10 @@ export default class NavBar extends Component {
     );
   }
 
+  logout() {
+    this.props.logoutUser();
+  }
+
   renderRouteBar() {
     const filteredRoutes = routes.filter(r => r.name != 'Login' && r.name != 'Register');
     return (
@@ -79,7 +86,7 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const isLoggedIn = true;
+    const { isAuthenticated } = this.props;
 
     return (
       <MuiThemeProvider>
@@ -95,10 +102,11 @@ export default class NavBar extends Component {
             onRequestChange={isDrawerOpen => this.setState({ isDrawerOpen })}
           >
             <UserStatusDiv>
-              {!isLoggedIn && this.renderRegisterLoginBar()}
-              {isLoggedIn && this.renderUserInfoBar()}
+              {!isAuthenticated && this.renderRegisterLoginBar()}
+              {isAuthenticated && this.renderUserInfoBar()}
             </UserStatusDiv>
             {this.renderRouteBar()}
+            {isAuthenticated && <MenuItem onClick={::this.logout}>Logout</MenuItem>}
           </Drawer>
         </div>
       </MuiThemeProvider>

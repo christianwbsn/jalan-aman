@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { compose, withProps, lifecycle } from "recompose";
 import {
@@ -13,6 +14,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 
 import get from 'lodash/fp/get';
+
+import request from 'superagent';
+
+import ReportDetail from '../ReportDetail';
 
 function getFormattedDate(date) {
   const bulan = ['Januari', 'Febuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -38,8 +43,6 @@ class MapWithDialog extends Component {
         id: '',
       },
     };
-
-    this.renderDialogContent = this.renderDialogContent.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,20 +97,6 @@ class MapWithDialog extends Component {
     this.handleOpen();
   }
 
-  renderDialogContent() {
-    const { title, parsedDate, parsedTime, address, description, id } = this.state.dialogContent;
-
-    return (
-      <div>
-        <h4>{title}</h4>
-        <h4>{parsedDate}</h4>
-        <h4>{parsedTime}</h4>
-        <h4>{address}</h4>
-        <h4>{description}</h4>
-      </div>
-    );
-  }
-
   handleOpen = () => {
     this.setState({ isDialogOpen: true });
   };
@@ -152,7 +141,7 @@ class MapWithDialog extends Component {
             onRequestClose={this.handleClose}
             autoScrollBodyContent={true}
           >
-            {this.renderDialogContent()}
+            <ReportDetail {...this.state.dialogContent} />
           </Dialog>
         </div>
       </MuiThemeProvider>
